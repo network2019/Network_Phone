@@ -1,0 +1,68 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.back {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+}
+
+.slider-wrapper {
+    position: relative;
+    margin: 50px auto;
+    margin-left: 100px;
+}
+
+#age {
+    position: absolute;
+    text-align: center;
+}
+
+#year {
+    position: absolute;
+    text-align: center;
+    margin-top: 50px;
+}
+
+
+#ageSlider {
+    height: 600px;
+    float: right;
+    margin-right: 50px;
+}
+
+#ageSlider .ui-slider-handle {
+    width: 20px;
+    height: 40px;
+    margin-top: 2px;
+    background: #0088ff;
+    /* 色 */
+    border: 3px solid #000088;
+    /* border */
+}
+
+#agelider .ui-slider-range {
+    background: #c7e7f7;
+}
+
+
+#yearSlider {
+    bottom: -700px;
+    margin-right: 70px;
+}
+
+#yearSlider .ui-slider-handle {
+    width: 40px;
+    height: 20px;
+    margin-top: 2px;
+    background: #0088ff;
+    /* 色 */
+    border: 3px solid #000088;
+    /* border */
+}
+
+#yearSlider .ui-slider-range {
+    background: #c7e7f7;
+}
