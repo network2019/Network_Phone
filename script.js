@@ -1,39 +1,54 @@
-var data = []; //0-6 Smartphone , 7-13 Galapagos
+var dataSmartphone = {};
+var dataGalapagos = {};
 
-function getCSV(filename) {
+function getCSV(filename, dataname) {
     var req = new XMLHttpRequest();
     req.open('get', filename, true);
     req.send(null);
     req.onload = function () {
-        setCSV(req.responseText);
-    };
-}
+        convertCSVtoArray(req.responseText, dataname);
+    }
+};
 
-function setCSV(str) {
-    var dataArr;
-    var tmp = str.split('\n');
-    tmp.forEach(x => {
-        dataArr = x.split(',');
-        // if (dataArr[0]) {
-        //     data.push(dataArr.map(x => x.trim()));
-        // }
-        for (var i = 0; i < dataArr.length; i++) {
-            if (isNaN(Number(dataArr[i])) == false) {
-                dataArr[i] = Number(dataArr[i]);
+function convertCSVtoArray(str, name) { // 読み込んだCSVデータが文字列として渡される
+    var tmp = str.split("\n"); // 改行を区切り文字として行を要素とした配列を生成
+    var dataArr = [];
+    var age;
+    // 各行ごとにカンマで区切った文字列を要素とした二次元配列を生成
+    for (var i = 0; i < tmp.length; i++) {
+        dataArr[i] = tmp[i].split(',');
+
+        for (var j = 0; j < dataArr[i].length; j++) {
+            if (isNaN(Number(dataArr[i][j])) == false) {
+                dataArr[i][j] = Number(dataArr[i][j]);
             }
         }
 
-        data.push(dataArr);
+        age = dataArr[i][0];
+        dataArr[i].shift();
 
-    });
+        name[age] = dataArr[i];
+    }
 }
-getCSV("Smartphone.csv");
-getCSV("Galapagos.csv");
 
+var promiseSmartphone = new Promise(function (resolve, reject) {
+    resolve(getCSV("Smartphone.csv", dataSmartphone));
+});
+
+var promiseGalapagos = new Promise(function (resolve, reject) {
+    resolve(getCSV("Galapagos.csv", dataGalapagos));
+});
+
+promiseSmartphone.then(function () {
+    console.log(dataSmartphone);
+    // console.log(dataSmartphone['20s'][0]);
+});
+
+promiseGalapagos.then(function () {
+    console.log(dataGalapagos);
+});
 
 $(function () {
-    console.table(data);
-    console.log(data[0][1]);
 
     $('#ageSlider').slider({
         max: 80,
