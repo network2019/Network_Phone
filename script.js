@@ -1,3 +1,4 @@
+
 $(function () {
     $('#ageSlider').slider({
         max: 80,
@@ -25,5 +26,4 @@ $(function () {
             document.getElementById("year").innerText = handleIndex.value;
         }
     });
-
 });
