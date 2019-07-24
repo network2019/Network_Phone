@@ -9,7 +9,7 @@ body {
     right: 10px;
 }
 
-.slider-wrapper {
+/* .slider-wrapper {
     position: relative;
     margin: 50px auto;
     margin-left: 100px;
@@ -24,10 +24,10 @@ body {
     position: absolute;
     text-align: center;
     margin-top: 50px;
-}
+} */
 
 
-#ageSlider {
+/* #ageSlider {
     height: 600px;
     float: right;
     margin-right: 50px;
@@ -39,8 +39,8 @@ body {
     margin-top: 2px;
     background: #0088ff;
     /* 色 */
-    border: 3px solid #000088;
-    /* border */
+border: 3px solid #000088;
+/* border */
 }
 
 #agelider .ui-slider-range {
@@ -66,3 +66,5 @@ body {
 #yearSlider .ui-slider-range {
     background: #c7e7f7;
 }
+
+*/

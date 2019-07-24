@@ -46,8 +46,8 @@ function convertCSVtoArray(str) { // 読み込んだCSVデータが文字列と�
 //処理を連結
 Promise.all([
 
-    getCSV("Smartphone.csv"),
-    getCSV("Galapagos.csv")
+    getCSV("./csvData/Smartphone.csv"),
+    getCSV("./csvData/Galapagos.csv")
 
 ]).then(function (data) {
 
@@ -55,9 +55,7 @@ Promise.all([
     gaData = data[1];
     console.log(spData);
     console.log(gaData);
-    // console.log(spData['20s']);
-    // console.log(gaData['20s']);
-    console.log(Object.keys(spData));
+
 
 }).then(function () {
     console.log("Smartphone = " + spData[Age.toString() + 's'][Year]);
@@ -79,6 +77,7 @@ Promise.all([
 
             console.log("Smartphone = " + spData[Age.toString() + 's'][Year]);
             console.log("Galapagos = " + gaData[Age.toString() + 's'][Year]);
+
         }
     });
 
