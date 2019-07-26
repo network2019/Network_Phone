@@ -1,9 +1,16 @@
 var spData;
 var gaData;
 var age;
+var tp;
+var audio20 = new Audio("./sounds/20s.mp4");
+var audio30 = new Audio("./sounds/30s.mp4");
+var audio40 = new Audio("./sounds/40s.mp4");
+var audio50 = new Audio("./sounds/50s.mp4");
+var audio60 = new Audio("./sounds/60s.mp4");
+var audio70 = new Audio("./sounds/70s.mp4");
+var audio80 = new Audio("./sounds/80s.mp4");
 
 function getCSV(filename) {
-    //ここでPromiseでくくっちゃう
     return new Promise(function (resolve) {
         var req = new XMLHttpRequest();
         req.open('get', filename, true);
@@ -49,40 +56,84 @@ Promise.all([
 ]).then(function (data) {
 
     age = "20s";
+    tp = 1.0;
+    document.getElementById("tpletters").innerText = age;
 
     spData = data[0];
     gaData = data[1];
 
-    console.log(spData);
-    console.log(gaData);
-    console.log(age);
-
 }).then(function () {
-    var i = 0;
 
-    function returnData() {
-        if (i < 6) {
-            i = i + 1;
-        } else {
-            i = 0;
-        }
-
-        return i;
-    }
-
-
-
+    //グラフ作成
     var dom = document.getElementById("container");
     var myChart = echarts.init(dom);
-    var app = {};
     option = null;
 
     var dynamicData = [spData[age][0], spData[age][1], spData[age][2], spData[age][3], spData[age][4], spData[age][5], spData[age][6]];
+
+    //スライダーの作成
+    $(function () {
+        $("#ageSlider").slider({
+            min: 20,
+            max: 80,
+            step: 10,
+            value: 20,
+            animate: "fast",
+            change: function () {
+                var num = $("#ageSlider").slider('value');
+                age = num.toString() + "s";
+
+                for (var i = 20; i <= 80; i += 10) {
+                    var name = "audio" + i.toString();
+                    eval(name).pause();
+                    eval(name).currentTime = 0;
+                }
+
+                switch (age) {
+                    case "20s":
+                        audio20.play();
+                        break;
+                    case "30s":
+                        audio30.play();
+                        break;
+                    case "40s":
+                        audio40.play();
+                        break;
+                    case "50s":
+                        audio50.play();
+                        break;
+                    case "60s":
+                        audio60.play();
+                        break;
+                    case "70s":
+                        audio70.play();
+                        break;
+                    case "80s":
+                        audio80.play();
+                        break;
+                }
+
+                dynamicData = [spData[age][0], spData[age][1], spData[age][2], spData[age][3], spData[age][4], spData[age][5], spData[age][6]];
+                myChart.setOption({
+                    series: [{
+                        data: dynamicData
+                    }]
+                })
+
+                document.getElementById("tpletters").innerText = age;
+
+                tp = 1.0;
+            }
+        });
+    });
+
+    //グラフの設定
     option = {
         grid: {
             borderWidth: 0
         },
         xAxis: {
+            name: "Year",
             type: 'category',
             data: ['2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018'],
             axisLabel: {
@@ -98,18 +149,23 @@ Promise.all([
             }
         },
         yAxis: {
+            name: "Rate",
             min: -20,
             max: 40,
             type: 'value',
             boundaryGap: false,
             axisLine: {
                 show: false
+            },
+            axisLabel: {
+                formatter: '{value} %'
             }
         },
         series: [{
+            type: 'line',
             tooltip: {
                 trigger: 'axis',
-                position: [0, 50]
+                position: [0, 50],
             },
             itemStyle: {
                 normal: {
@@ -118,30 +174,23 @@ Promise.all([
                     }
                 }
             },
-            markPoint: {
-                symbol: 'diamond'
-            },
-            data: dynamicData,
-            type: 'line'
+            data: dynamicData
         }]
-    };;
+    };
 
+    //透明度の変更
     setInterval(function () {
-        var j = returnData();
-        var num = 20 + 10 * j;
-        age = num.toString() + 's';
+            tp -= 0.05;
+            if (tp < 0.1) tp = 0.1;
+            $('#tpletters').css('opacity', tp);
+        },
+        30);
 
-        console.log(age);
-        dynamicData = [spData[age][0], spData[age][1], spData[age][2], spData[age][3], spData[age][4], spData[age][5], spData[age][6]];
 
-        myChart.setOption({
-            series: [{
-                data: dynamicData
-            }]
-        })
-    }, 3000);
 
     if (option && typeof option === "object") {
         myChart.setOption(option, true);
     }
+
+
 });

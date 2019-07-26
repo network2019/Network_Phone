@@ -9,62 +9,36 @@ body {
     right: 10px;
 }
 
-/* .slider-wrapper {
+.slider-wrapper {
+    display: inline-block;
     position: relative;
-    margin: 50px auto;
-    margin-left: 100px;
-}
-
-#age {
-    position: absolute;
-    text-align: center;
-}
-
-#year {
-    position: absolute;
-    text-align: center;
+    margin: 0px auto;
     margin-top: 50px;
-} */
-
-
-/* #ageSlider {
-    height: 600px;
-    float: right;
-    margin-right: 50px;
+    margin-left: 200px;
 }
 
-#ageSlider .ui-slider-handle {
-    width: 20px;
-    height: 40px;
-    margin-top: 2px;
-    background: #0088ff;
-    /* 色 */
-border: 3px solid #000088;
-/* border */
-}
-
-#agelider .ui-slider-range {
-    background: #c7e7f7;
-}
-
-
-#yearSlider {
-    bottom: -700px;
+#ageSlider {
+    width: 70%;
+    height: 8px;
+    bottom: 20px;
     margin-right: 70px;
 }
 
-#yearSlider .ui-slider-handle {
-    width: 40px;
-    height: 20px;
-    margin-top: 2px;
-    background: #0088ff;
-    /* 色 */
-    border: 3px solid #000088;
-    /* border */
+#ageSlider .ui-slider-handle {
+    border-radius: 10px;
+    background: #030303;
+
 }
 
-#yearSlider .ui-slider-range {
-    background: #c7e7f7;
+#ageSlider .ui-slider-range {
+    background: #ffffff;
 }
 
-*/
+#tpletters {
+    position: absolute;
+    top: 300px;
+    left: 600px;
+    font-size: 120px;
+    font-weight: bold;
+    opacity: 0.5;
+}
